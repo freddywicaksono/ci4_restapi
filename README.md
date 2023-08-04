@@ -233,6 +233,7 @@ class Students extends ResourceController
 }
 ```
 ## 8. Add Restful Route for Student
+Edit file app/Config/Routes.php
 ```
 $routes->get('/', 'Home::index');
 ```
@@ -241,7 +242,7 @@ Change to:
 $routes->get('/', 'Home::index');
 $routes->resource('students');
 ```
-## 2. Edit file app/Config/App.php
+## 9. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
 public string $indexPage = 'index.php';
@@ -254,7 +255,7 @@ public string $indexPage = '';
 public string $uriProtocol = 'PATH_INFO';
 
 ```
-## 3. Copy file .htaccess and index.php from public folder to root directory
+## 10. Copy file .htaccess and index.php from public folder to root directory
 Edit file index.php in root directory:
 ```
 require FCPATH . '../app/Config/Paths.php';
@@ -263,3 +264,4 @@ change into :
 ```
 require FCPATH . 'app/Config/Paths.php';
 ```
+## Testing API in Postman
