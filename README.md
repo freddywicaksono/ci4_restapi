@@ -4,7 +4,7 @@ Please follow these steps:
 - Extract, then copy folder to c:/xampp/htdocs
 - Rename folder to 'demo'
 
-## 1. Edit file app/Config/App.php
+## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
 public string $indexPage = 'index.php';
@@ -17,7 +17,7 @@ public string $indexPage = '';
 public string $uriProtocol = 'PATH_INFO';
 
 ```
-## 2. Copy file .htaccess and index.php from public folder to root directory
+## 3. Copy file .htaccess and index.php from public folder to root directory
 Edit file index.php in root directory:
 ```
 require FCPATH . '../app/Config/Paths.php';
