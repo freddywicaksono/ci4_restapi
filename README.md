@@ -95,6 +95,7 @@ This will create a file in app/Models/Student.php
 ```
 protected $allowedFields    = [];
 ```
+change to:
 ```
 protected $allowedFields    = ['name', 'email'];
 ```
