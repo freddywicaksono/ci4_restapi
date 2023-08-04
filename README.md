@@ -85,6 +85,8 @@ class Student extends Migration
 ```
 php spark migrate
 ```
+This will create table: students
+
 ## 6. Create Model for Student
 ```
 php spark make:model Student
