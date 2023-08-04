@@ -7,7 +7,7 @@ Please follow these steps:
 ## 2. Rename file env to .env
 Edit file .env
 ```
-\# CI_ENVIRONMENT = production
+# CI_ENVIRONMENT = production
 ```
 change to
 ```
