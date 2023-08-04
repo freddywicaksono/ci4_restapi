@@ -14,7 +14,7 @@ http://localhost/phpmyadmin
 ```
 - Create Database demo
 
-## 2. Rename file env to .env
+## 4. Rename file env to .env
 Edit file .env
 ```
 # CI_ENVIRONMENT = production
@@ -32,15 +32,56 @@ change to
 CI_ENVIRONMENT = development
 
 database.default.hostname = localhost
-database.default.database = ci4
+database.default.database = demo
 database.default.username = root
 database.default.password = 
 database.default.DBDriver = MySQLi
 database.default.DBPrefix =
 database.default.port = 3306
 ```
-## 3. Edit file Config/database.php
+## 5. Create table Students
+```
+php spark make:migration Student
+```
+This will generate a new file inside the app/Database/Migrations folder: timestamp_Student.php
+- edit file 'timestamp_Student.php'
+```php
+<?php
 
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class Student extends Migration
+{
+    public function up()
+    {
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INT',
+                'auto_increment' => true
+            ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'email' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100'
+            ],
+            'created_at datetime default current_timestamp',
+            'updated_at datetime default current_timestamp on update current_timestamp'
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('students');
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('students');
+    }
+}
+```
 ## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
