@@ -82,6 +82,9 @@ class Student extends Migration
     }
 }
 ```
+```
+php spark migrate
+```
 ## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
