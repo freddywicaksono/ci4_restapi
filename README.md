@@ -85,6 +85,19 @@ class Student extends Migration
 ```
 php spark migrate
 ```
+## 6. Create MOdel for Student
+```
+php spark make:model Student
+```
+This will create a file in app/Models/Student.php
+
+- Edit the file to set allow field for Entry:
+```
+protected $allowedFields    = [];
+```
+```
+protected $allowedFields    = ['name', 'email'];
+```
 ## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
