@@ -102,6 +102,20 @@ change to:
 ```
 protected $allowedFields    = ['name', 'email', 'created_at', 'updated_at']
 ```
+Complete code:
+```php
+<?php
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class StudentsModel extends Model
+{
+    protected $table = 'students';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['name', 'email', 'created_at', 'updated_at'];
+}
+```
 ## 7. Create Controller for Student
 ```
 php spark make:controller Students --restful
