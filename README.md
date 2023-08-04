@@ -12,7 +12,7 @@ Please follow these steps:
 ```
 http://localhost/phpmyadmin
 ```
-- Create Database demo
+- Create Database: 'demo'
 
 ## 4. Rename file env to .env
 Edit file .env
