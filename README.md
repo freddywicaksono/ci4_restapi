@@ -100,7 +100,7 @@ protected $allowedFields    = [];
 ```
 change to:
 ```
-protected $allowedFields    = ['name', 'email'];
+protected $allowedFields    = ['name', 'email', 'created_at', 'updated_at']
 ```
 ## 7. Create Controller for Student
 ```
@@ -110,130 +110,88 @@ This will create a file in app/Controllers/Students.php
 - Edit file Students.php
 ```php
 <?php
+// File: app/Controllers/Students.php
 
 namespace App\Controllers;
 
-use App\Models\Student;
+use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\StudentsModel; // Make sure to import the StudentsModel
 
 class Students extends ResourceController
 {
+    use ResponseTrait;
 
-    private $student;
+    protected $modelName = 'App\Models\StudentsModel';
+    protected $format    = 'json';
 
-    public function __construct()
-    {
-        $this->student = new Student();
-    }
-
-    /**
-     * Return an array of resource objects, themselves in array format
-     *
-     * @return mixed
-     */
     public function index()
     {
-        $students = $this->student->findAll();
+        // Fetch all students from the database
+        $model = new StudentsModel();
+        $students = $model->findAll();
+
         return $this->respond($students);
     }
 
-    /**
-     * Return the properties of a resource object
-     *
-     * @return mixed
-     */
     public function show($id = null)
     {
-        $student = $this->student->find($id);
-        if ($student) {
-            return $this->respond($student);
+        // Fetch a specific student by ID from the database
+        $model = new StudentsModel();
+        $student = $model->find($id);
+
+        if (!$student) {
+            return $this->failNotFound('Student not found.');
         }
-        return $this->failNotFound('Sorry! no student found');
+
+        return $this->respond($student);
     }
 
-
-    /**
-     * Create a new resource object, from "posted" parameters
-     *
-     * @return mixed
-     */
     public function create()
     {
-        $validation = $this->validate([
-            'name' => 'required',
-            "email" => "required|valid_email|is_unique[students.email]|min_length[6]",
-        ]);
+        // Handle the creation of a new student
+        $model = new StudentsModel();
 
-        if (!$validation) {
-            return $this->failValidationErrors($this->validator->getErrors());
+        $data = $this->request->getPost();
+        $result = $model->insert($data);
+
+        if (!$result) {
+            return $this->fail($model->errors());
         }
 
-        $student = [
-            'name' => $this->request->getVar('name'),
-            'email' => $this->request->getVar('email')
-        ];
-
-        $studentId = $this->student->insert($student);
-        if ($studentId) {
-            $student['id'] = $studentId;
-            return $this->respondCreated($student);
-        }
-        return $this->fail('Sorry! no student created');
+        return $this->respondCreated($data, 'Student created.');
     }
 
-
-    /**
-     * Add or update a model resource, from "posted" properties
-     *
-     * @return mixed
-     */
     public function update($id = null)
     {
-        $student = $this->student->find($id);
-        if ($student) {
+        // Handle updating an existing student
+        $model = new StudentsModel();
 
-            $validation = $this->validate([
-                'name' => 'required',
-                "email" => "required|valid_email",
-            ]);
+        $data = $this->request->getRawInput();
+        $data['id'] = $id;
 
-            if (!$validation) {
-                return $this->failValidationErrors($this->validator->getErrors());
-            }
-
-            $student = [
-                'id' => $id,
-                'name' => $this->request->getVar('name'),
-                'email' => $this->request->getVar('email')
-            ];
-
-            $response = $this->student->save($student);
-            if ($response) {
-                return $this->respond($student);
-            }
-            return $this->fail('Sorry! not updated');
+        if ($model->update($id, $data) === false) {
+            return $this->fail($model->errors());
         }
-        return $this->failNotFound('Sorry! no student found');
+
+        return $this->respondUpdated($data, 'Student updated.');
     }
 
-    /**
-     * Delete the designated resource object from the model
-     *
-     * @return mixed
-     */
     public function delete($id = null)
     {
-        $student = $this->student->find($id);
-        if ($student) {
-            $response = $this->student->delete($id);
-            if ($response) {
-                return $this->respond($student);
-            }
-            return $this->fail('Sorry! not deleted');
+        // Handle deleting a student
+        $model = new StudentsModel();
+
+        $deleted = $model->delete($id);
+
+        if ($deleted === false) {
+            return $this->fail($model->errors());
         }
-        return $this->failNotFound('Sorry! no student found');
+
+        return $this->respondDeleted(['id' => $id], 'Student deleted.');
     }
 }
+
 ```
 ## 8. Add Restful Route for Student
 Edit file app/Config/Routes.php
@@ -243,7 +201,11 @@ $routes->get('/', 'Home::index');
 Change to:
 ```
 $routes->get('/', 'Home::index');
-$routes->resource('students');
+$routes->get('students', 'Students::index');
+$routes->get('students/(:num)', 'Students::show/$1');
+$routes->post('students', 'Students::create');
+$routes->put('students/(:num)', 'Students::update/$1');
+$routes->delete('students/(:num)', 'Students::delete/$1');
 ```
 ## 9. Edit file app/Config/App.php
 ```
@@ -268,4 +230,8 @@ change into :
 require FCPATH . 'app/Config/Paths.php';
 ```
 ## Testing API in Postman
+![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
+![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
+![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
+![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
