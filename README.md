@@ -232,7 +232,15 @@ class Students extends ResourceController
     }
 }
 ```
-
+## 8. Add Restful Route for Student
+```
+$routes->get('/', 'Home::index');
+```
+Change to:
+```
+$routes->get('/', 'Home::index');
+$routes->resource('students');
+```
 ## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
