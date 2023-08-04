@@ -4,6 +4,16 @@ Please follow these steps:
 - Extract, then copy folder to c:/xampp/htdocs
 - Rename folder to 'demo'
 
+## 2. Rename file env to .env
+Edit file .env
+```
+!# CI_ENVIRONMENT = production
+```
+change to
+```
+CI_ENVIRONMENT = development
+```
+
 ## 2. Edit file app/Config/App.php
 ```
 public string $baseURL = 'http://localhost:8080/';
