@@ -116,7 +116,7 @@ namespace App\Controllers;
 
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\StudentsModel; // Make sure to import the StudentsModel
+use App\Models\Student; // Make sure to import the StudentsModel
 
 class Students extends ResourceController
 {
