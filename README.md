@@ -86,6 +86,7 @@ class Student extends Migration
 php spark migrate
 ```
 This will create table: students
+
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/table_students.JPG)
 ## 6. Create Model for Student
 ```
