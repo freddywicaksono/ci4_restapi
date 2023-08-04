@@ -4,15 +4,42 @@ Please follow these steps:
 - Extract, then copy folder to c:/xampp/htdocs
 - Rename folder to 'demo'
 
+## 2. Start XAMPP Control Panel
+- Start Apache
+- Start MySQL
+
+## 3. Open PHPMyAdmin
+```
+http://localhost/phpmyadmin
+```
+- Create Database demo
+
 ## 2. Rename file env to .env
 Edit file .env
 ```
 # CI_ENVIRONMENT = production
+
+# database.default.hostname = localhost
+# database.default.database = ci4
+# database.default.username = root
+# database.default.password = root
+# database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+# database.default.port = 3306
 ```
 change to
 ```
 CI_ENVIRONMENT = development
+
+database.default.hostname = localhost
+database.default.database = ci4
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
 ```
+## 3. Edit file Config/database.php
 
 ## 2. Edit file app/Config/App.php
 ```
