@@ -230,8 +230,17 @@ change into :
 require FCPATH . 'app/Config/Paths.php';
 ```
 ## Testing API in Postman
+Screenshot Tampil Semua Data:
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_tampilsemua.JPG)
+
+Screenshot Tampil Pencarian Data:
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_tampilsatu.JPG)
+
+Screenshot Entry Data:
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_entry.JPG)
+
+Screenshot Update Data:
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_update.JPG)
+
+Screenshot Delete Data:
 ![image](https://github.com/freddywicaksono/ci4_restapi/blob/main/api_demo_delete.JPG)
