@@ -124,7 +124,7 @@ This will create a file in app/Controllers/Students.php
 - Edit file Students.php
 ```php
 <?php
-// File: app/Controllers/Students.php
+// File: app/Controllers/StudentsController.php
 
 namespace App\Controllers;
 
@@ -136,13 +136,13 @@ class Students extends ResourceController
 {
     use ResponseTrait;
 
-    protected $modelName = 'App\Models\StudentsModel';
+    protected $modelName = 'App\Models\Student';
     protected $format    = 'json';
 
     public function index()
     {
         // Fetch all students from the database
-        $model = new StudentsModel();
+        $model = new Student();
         $students = $model->findAll();
 
         return $this->respond($students);
@@ -151,7 +151,7 @@ class Students extends ResourceController
     public function show($id = null)
     {
         // Fetch a specific student by ID from the database
-        $model = new StudentsModel();
+        $model = new Student();
         $student = $model->find($id);
 
         if (!$student) {
@@ -164,7 +164,7 @@ class Students extends ResourceController
     public function create()
     {
         // Handle the creation of a new student
-        $model = new StudentsModel();
+        $model = new Student();
 
         $data = $this->request->getPost();
         $result = $model->insert($data);
@@ -179,7 +179,7 @@ class Students extends ResourceController
     public function update($id = null)
     {
         // Handle updating an existing student
-        $model = new StudentsModel();
+        $model = new Student();
 
         $data = $this->request->getRawInput();
         $data['id'] = $id;
@@ -194,7 +194,7 @@ class Students extends ResourceController
     public function delete($id = null)
     {
         // Handle deleting a student
-        $model = new StudentsModel();
+        $model = new Student();
 
         $deleted = $model->delete($id);
 
